@@ -23,7 +23,7 @@ features:
   - title: Contribuir
     icon: 📚
     details: Si deseas contribuir con tutoriales o corregir errores, eres bienvenido.
-    link: /players/
+    link: https://github.com/Neipth/fabric-docs
     linkText: Contribuir
 ---
 

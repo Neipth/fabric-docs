@@ -1,8 +1,8 @@
 # Folders
 /node_modules
 docs/.vitepress/cache
-/.vitepress/.temp
-/.vitepress/dist
+docs/.vitepress/.temp
+docs/vitepress/dist
 
 # Files
 .DS_Store

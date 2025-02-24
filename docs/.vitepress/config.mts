@@ -4,11 +4,31 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Documentación de Fabric",
   description: "Documentación de Fabric, unas de la herramientas para Modding de Minecraft",
+
+  // Removes .html from the end of URLs.
+  cleanUrls: true,
+
+  // Mostly just for the favicon.
+  head: [["link", { rel: "icon", sizes: "32x32", href: "/favicon.png" }]],
+
+  // Adds a "Last Updated" block to the footer of pages, uses git to determine the last time a page's file was modified.
+  lastUpdated: true,
+
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    search: {
+      options: {
+        // Removes versioned and translated pages from search.
+        _render(src, env, md) {
+          if (env.frontmatter?.search === false) return "";
+          return md.render(src, env);
+        },
+      },
+      provider: "local",
+    },
+
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Inicio', link: '/' },
+      { text: 'Documentación', link: '/markdown-examples' }
     ],
 
     sidebar: [
@@ -22,7 +42,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/Neipth/fabric-docs' }
     ]
   }
 })
