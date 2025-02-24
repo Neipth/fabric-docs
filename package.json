@@ -1,0 +1,16 @@
+{
+  "name": "fabric-docs",
+  "description": "",
+  "version": "1.0.0",
+  "author": "Neipth",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:server": "vitepress server docs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
