@@ -12,5 +12,14 @@
   },
   "devDependencies": {
     "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
+    "markdown-it-vuepress-code-snippet-enhanced": "github:IMB11/md-it-enhanced-snippets#dfb9fa2",
+    "markdownlint": "^0.37.4",
+    "markdownlint-rule-search-replace": "^1.2.0",
+    "markdownlint-rule-titlecase": "^0.1.0",
+    "syntax-mcfunction": "github:MinecraftCommands/syntax-mcfunction#458827b",
+    "vue": "^3.5.13"
   }
 }

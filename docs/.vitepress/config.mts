@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress'
+import snippetPlugin from "markdown-it-vuepress-code-snippet-enhanced";
+import develop from './develop'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,35 +16,92 @@ export default defineConfig({
   // Adds a "Last Updated" block to the footer of pages, uses git to determine the last time a page's file was modified.
   lastUpdated: true,
 
+  markdown: {
+    config(md) {
+      // Use the snippet plugin (transclusion, etc.)
+      md.use(snippetPlugin);
+    },
+    image: { lazyLoading: true },
+    languages: [
+      async () =>
+        // Adds support for mcfunction language to shiki.
+        await import("syntax-mcfunction/mcfunction.tmLanguage.json", {
+          with: { type: "json" },
+        }).then((lang) => ({ ...(lang.default as any), name: "mcfunction" })),
+    ],
+    lineNumbers: true,
+    math: true,
+    async shikiSetup(shiki) {
+      await shiki.loadTheme("github-light", "github-dark");
+    },
+  },
+
   themeConfig: {
     search: {
+      provider: "local",
       options: {
-        // Removes versioned and translated pages from search.
-        _render(src, env, md) {
-          if (env.frontmatter?.search === false) return "";
-          return md.render(src, env);
+        translations: {
+          button: {
+            buttonAriaLabel: "Buscar",
+            buttonText: "Buscar",
+          },
+          modal: {
+            displayDetails: "Mostrar detalles",
+            backButtonTitle: "Salir de la búsqueda",
+            noResultsText: "No se encontraron resultados",
+            resetButtonTitle: "Restablecer la búsqueda",
+            footer: {
+                closeKeyAriaLabel: "Para cerrar",
+                closeText: "Para cerrar",
+                navigateDownKeyAriaLabel: "Flecha abajo",
+                navigateUpKeyAriaLabel: "Flecha arriba",
+                navigateText: "Para navegar",
+                selectKeyAriaLabel: "Seleccionar",
+                selectText: "Para seleccionar",
+            },
+          },
         },
       },
-      provider: "local",
     },
+
+    logo: '../logo.png',
 
     nav: [
       { text: 'Inicio', link: '/' },
-      { text: 'Documentación', link: '/markdown-examples' }
+      { text: 'Documentación', link: '/develop' }
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    sidebar: develop,
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Neipth/fabric-docs' }
-    ]
+    ],
+
+    editLink: {
+      pattern: "https://github.com/Neipth/fabric-docs/edit/main/docs/:path",
+      text: "Editar esta página en GitHub",
+    },
+
+    lastUpdated: { text: "Última actualización" },
+
+    outline: {
+      label: "En esta página",
+      level: "deep",
+    },
+
+    docFooter: {
+      prev: 'Anterior Página',
+      next: 'Siguiente Página',
+    },
+
+    returnToTopLabel: "Volver arriba",
+
+    notFound: {
+      code: "404",
+      title: "Página no encontrada",
+      quote: "¡Oh no! ¡No se encontró la página!",
+      linkLabel: "Regresar a la página principal",
+      linkText: "Regresar a la página principal",
+    },
   }
 })

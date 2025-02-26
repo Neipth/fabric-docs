@@ -12,7 +12,7 @@ hero:
       link: /develop
     - theme: alt
       text: Repositorio
-      link: /
+      link: https://github.com/Neipth/fabric-docs
 
 features:
   - title: Guía para desarrolladores
